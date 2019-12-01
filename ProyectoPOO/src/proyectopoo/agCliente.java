@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -115,19 +116,55 @@ public class agCliente extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        int x = 0;
         if(e.getSource()== cuentaC){
-            cuentaC.setVisible(false);
-            cuentaA.setVisible(false);
-            interes.setVisible(true);
-            inte.setVisible(true);
-        }
-        if(e.getSource()== cuentaA){
             cuentaC.setVisible(false);
             cuentaA.setVisible(false);
             montoS.setVisible(true);
             sob.setVisible(true);
         }
+        if(e.getSource()== cuentaA){
+            cuentaC.setVisible(false);
+            cuentaA.setVisible(false);
+            interes.setVisible(true);
+            inte.setVisible(true);
+        }
         if(e.getSource()== agregaC){
+            boolean y = true;
+            banco b = menuBanco.obtenerDatos();
+            for(int i=0;i<b.obtenerTam();i++){
+                if(b.obtenerCliente(i).obtenerNombre().equals(nom.getText()))
+                        y = false;
+            }
+            
+            if(y){
+                cliente c = new cliente(nom.getText());
+                if(interes.isVisible()){
+                    cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
+                    c.agregarCuenta(cta);
+                }
+                else{
+                    cuentaDeCheques  cta2 = new cuentaDeCheques(Double.parseDouble(sal.getText()),Double.parseDouble(sob.getText()));
+                    c.agregarCuenta(cta2);
+                }
+                b.agrgarCliente(c);
+                JOptionPane.showMessageDialog(this, "Cliente agregado(a)");
+            }
+            else{
+               if(interes.isVisible()){
+                    cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
+                    b.obtenerCliente(nom.getText()).agregarCuenta(cta);
+                }
+                else{
+                    cuentaDeCheques  cta2 = new cuentaDeCheques(Double.parseDouble(sal.getText()),Double.parseDouble(sob.getText()));
+                    b.obtenerCliente(nom.getText()).agregarCuenta(cta2);
+                } 
+                JOptionPane.showMessageDialog(this, "Cuenta agregada");
+            }
+            
+            menuBanco.guardarDatos(b);
+            
+            
             listo.setVisible(true);
             montoS.setVisible(false);
             sob.setVisible(false);
@@ -135,6 +172,9 @@ public class agCliente extends JFrame implements ActionListener{
             inte.setVisible(false);
             cuentaC.setVisible(true);
             cuentaA.setVisible(true);
+            
+            
+            
             
         }
         if(e.getSource() == listo){

@@ -26,4 +26,21 @@ public class banco implements Serializable{
             }
         }
     }
+    
+    public int obtenerTam(){
+        return listaCliente.size();
+    }
+    
+    public cliente obtenerCliente(int i){
+        return listaCliente.get(i);
+    }
+    
+    public cliente obtenerCliente(String  n){
+        int x=0;
+        for(int i =0; i<listaCliente.size(); i++){
+            if(listaCliente.get(i).obtenerNombre().equals(n))
+                x = i;
+        }
+        return listaCliente.get(x);
+    }
 }

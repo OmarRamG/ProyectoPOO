@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class cliente implements Serializable{
         private String nombre;
 	private ArrayList <cuenta> cuentas = new ArrayList <>();
-	private int numCuentas;
 	
 	public cliente(String nom){
 		nombre = nom;  
@@ -28,8 +27,12 @@ public class cliente implements Serializable{
 	public cuenta obtenerCuenta(int index){
 		return cuentas.get(index);
 	}
+        
+        public int obtenerTam(){
+            return cuentas.size();
+        }
 	
 	public void agregarCuenta(cuenta cta){
-            
+            cuentas.add(cta);
 	}
 }

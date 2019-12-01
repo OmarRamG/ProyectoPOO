@@ -22,6 +22,10 @@ public class cuentaDeCheques extends cuenta implements Serializable{
 	public cuentaDeCheques(double saldoIni){
 		super(saldoIni);   
 	}
+        
+        public  double consultarSobg(){
+            return montoSobregiro;
+        }
 	
 	public void retirar(double monto){
             if((super.consultar() + montoSobregiro) < monto){

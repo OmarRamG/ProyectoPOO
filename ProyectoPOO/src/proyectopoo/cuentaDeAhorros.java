@@ -19,6 +19,10 @@ public class cuentaDeAhorros extends cuenta implements Serializable{
 		tasaDeInteres = tasaInteres;  
 	}
         
+        public double conTasa(){
+            return (tasaDeInteres * 100);
+        }
+        
         @Override
 	public double consultar(){
             return (super.consultar() + (super.consultar() * tasaDeInteres));

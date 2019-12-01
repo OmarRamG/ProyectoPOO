@@ -99,16 +99,54 @@ public class menuBanco extends JFrame implements ActionListener{
         }
         
         if(e.getSource() == eliminarC){
-            JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
-            //JOptionPane.g
+            boolean y = false;
+            String n = JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
+            banco b = obtenerDatos();
+            for(int i=0;i<b.obtenerTam();i++){
+                if(b.obtenerCliente(i).obtenerNombre().equals(n))
+                        y = true;
+            }
+            if(y){
+                b.eliminarCliente(n);
+                JOptionPane.showMessageDialog(this, "Cliente eliminado");
+                guardarDatos(b);
+            }
+            else{
+               JOptionPane.showMessageDialog(this, "No existe ese cliente"); 
+            }
+         
         }
          
           if(e.getSource() == consultarC){
+            String n = JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
+            boolean y = false;
+            banco b = obtenerDatos();
+            for(int i=0;i<b.obtenerTam();i++){
+                if(b.obtenerCliente(i).obtenerNombre().equals(n))
+                        y = true;
+            }
+            if(y){
+                dispose();
+                EventQueue.invokeLater(new Runnable(){
+                public void run(){
+                    try{ 
+                      consultas con=new consultas(n);
+
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                });
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"Ese cliente no existe");
+            }
             
         }
     }
     
-    public banco obtenerDatos(){
+    public static banco obtenerDatos(){
         banco B = new banco();
         try{
             FileInputStream fis = new FileInputStream("Datos.dat");
@@ -122,7 +160,7 @@ public class menuBanco extends JFrame implements ActionListener{
     }
     
     
-    public void guardarDatos(banco b){
+    public static void guardarDatos(banco b){
         try{
             FileOutputStream fs = new FileOutputStream("Datos.dat");
             ObjectOutputStream os = new ObjectOutputStream(fs);
