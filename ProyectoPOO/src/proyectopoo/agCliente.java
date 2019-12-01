@@ -7,6 +7,8 @@ package proyectopoo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -130,56 +132,151 @@ public class agCliente extends JFrame implements ActionListener{
             inte.setVisible(true);
         }
         if(e.getSource()== agregaC){
-            boolean y = true;
-            banco b = menuBanco.obtenerDatos();
-            for(int i=0;i<b.obtenerTam();i++){
-                if(b.obtenerCliente(i).obtenerNombre().equals(nom.getText()))
-                        y = false;
-            }
-            
-            if(y){
-                cliente c = new cliente(nom.getText());
-                if(interes.isVisible()){
-                    cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
-                    c.agregarCuenta(cta);
+            if(validar()){
+                boolean y = true, p = true;
+                banco b = menuBanco.obtenerDatos();
+                for(int i=0;i<b.obtenerTam();i++){
+                    if(b.obtenerCliente(i).obtenerNombre().equals(nom.getText()))
+                            y = false;
+                }
+
+                if(y){
+                        cliente c = new cliente(nom.getText());
+                        if(interes.isVisible()){
+                            if(validarTipos(1)){
+                                cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
+                                c.agregarCuenta(cta);
+                                b.agregarCliente(c);
+                                JOptionPane.showMessageDialog(this, "Cliente agregado(a)");
+                            }
+                            else
+                                p = false;
+                        }
+                        else{
+                            if(validarTipos(0)){
+                                cuentaDeCheques  cta2 = new cuentaDeCheques(Double.parseDouble(sal.getText()),Double.parseDouble(sob.getText()));
+                                c.agregarCuenta(cta2);
+                                b.agregarCliente(c);
+                                JOptionPane.showMessageDialog(this, "Cliente agregado(a)");
+                            }
+                            else
+                                p = false;
+                        }
+    
                 }
                 else{
-                    cuentaDeCheques  cta2 = new cuentaDeCheques(Double.parseDouble(sal.getText()),Double.parseDouble(sob.getText()));
-                    c.agregarCuenta(cta2);
+                    if(interes.isVisible()){
+                        if(validarTipos(1)){
+                            cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
+                            b.obtenerCliente(nom.getText()).agregarCuenta(cta);
+                            JOptionPane.showMessageDialog(this, "Cuenta agregada");
+                        }
+                        else
+                                p = false;
+                     }
+                     else{
+                        if(validarTipos(0)){
+                            cuentaDeCheques  cta2 = new cuentaDeCheques(Double.parseDouble(sal.getText()),Double.parseDouble(sob.getText()));
+                            b.obtenerCliente(nom.getText()).agregarCuenta(cta2);
+                            JOptionPane.showMessageDialog(this, "Cuenta agregada");
+                        }
+                        else
+                                p = false;
+                     } 
                 }
-                b.agrgarCliente(c);
-                JOptionPane.showMessageDialog(this, "Cliente agregado(a)");
-            }
-            else{
-               if(interes.isVisible()){
-                    cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
-                    b.obtenerCliente(nom.getText()).agregarCuenta(cta);
+
+                menuBanco.guardarDatos(b);
+
+                if(p){
+                    listo.setVisible(true);
+                    montoS.setVisible(false);
+                    sob.setVisible(false);
+                    interes.setVisible(false);
+                    inte.setVisible(false);
+                    cuentaC.setVisible(true);
+                    cuentaA.setVisible(true);
                 }
-                else{
-                    cuentaDeCheques  cta2 = new cuentaDeCheques(Double.parseDouble(sal.getText()),Double.parseDouble(sob.getText()));
-                    b.obtenerCliente(nom.getText()).agregarCuenta(cta2);
-                } 
-                JOptionPane.showMessageDialog(this, "Cuenta agregada");
+            
             }
-            
-            menuBanco.guardarDatos(b);
-            
-            
-            listo.setVisible(true);
-            montoS.setVisible(false);
-            sob.setVisible(false);
-            interes.setVisible(false);
-            inte.setVisible(false);
-            cuentaC.setVisible(true);
-            cuentaA.setVisible(true);
-            
-            
-            
             
         }
         if(e.getSource() == listo){
             dispose();
             menuBanco w = new menuBanco();
         }
+    }
+    
+    public boolean validar(){
+        boolean x = true;
+        Pattern p = Pattern.compile("[^a-z ]",Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(nom.getText());
+        boolean b = m.find();
+        
+        Pattern p2 = Pattern.compile("[^0-9.]",Pattern.CASE_INSENSITIVE);
+        Matcher m2 = p2.matcher(sal.getText());
+        boolean b2 = m2.find();
+        try{
+            if(nom.getText().isEmpty()){
+                throw new excepciones(2);
+            }else if(b){
+                throw new excepciones(0);
+            }else if(sal.getText().isEmpty()){
+                throw new excepciones(3);
+            }else if(b2){
+                throw new excepciones(1);
+            }   
+        }
+        catch(excepciones e){
+            JOptionPane.showMessageDialog(this, e.getMessage());   
+            x = false;
+        }
+        return x;
+    }
+    
+    public boolean validarInteres(){
+        boolean i = true;
+        Pattern p = Pattern.compile("[^0-9.]",Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(inte.getText());
+        boolean b = m.find();
+        try{
+            if(inte.getText().isEmpty()){
+                throw new excepciones(5);
+            }else if(b){
+                throw new excepciones(4);
+            }
+        }
+        catch(excepciones e){
+            JOptionPane.showMessageDialog(this, e.getMessage());   
+            i= false;
+        }
+        
+        return i;
+    }
+        
+    public boolean validarSobregiro(){
+            boolean j = true;
+            Pattern p = Pattern.compile("[^0-9.]",Pattern.CASE_INSENSITIVE);
+            Matcher m = p.matcher(sob.getText());
+            boolean b = m.find();
+            try{
+                if(sob.getText().isEmpty()){
+                    throw new excepciones(7);
+                }else if(b){
+                    throw new excepciones(6);
+                }
+            }
+            catch(excepciones e){
+                JOptionPane.showMessageDialog(this, e.getMessage());   
+                j= false;
+            }
+
+            return j;
+   }
+    
+    public boolean validarTipos(int t){
+        if(t == 1)
+            return validarInteres();
+        else
+            return validarSobregiro();
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class banco implements Serializable{
     private ArrayList <cliente> listaCliente = new ArrayList <>();
     
-    public void agrgarCliente(cliente c){
+    public void agregarCliente(cliente c){
         listaCliente.add(c);
     }
     

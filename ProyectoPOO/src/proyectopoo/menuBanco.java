@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -114,50 +116,53 @@ public class menuBanco extends JFrame implements ActionListener{
         }
         
         if(e.getSource() == eliminarC){
-            boolean y = false;
             String n = JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
-            banco b = obtenerDatos();
-            for(int i=0;i<b.obtenerTam();i++){
-                if(b.obtenerCliente(i).obtenerNombre().equals(n))
-                        y = true;
-            }
-            if(y){
-                b.eliminarCliente(n);
-                JOptionPane.showMessageDialog(this, "Cliente eliminado");
-                guardarDatos(b);
-            }
-            else{
-               JOptionPane.showMessageDialog(this, "No existe ese cliente"); 
+            if(validarNombre(n)){
+                banco b = obtenerDatos();
+                boolean y = false;
+                for(int i=0;i<b.obtenerTam();i++){
+                    if(b.obtenerCliente(i).obtenerNombre().equals(n))
+                            y = true;
+                }
+                if(y){
+                    b.eliminarCliente(n);
+                    JOptionPane.showMessageDialog(this, "Cliente eliminado");
+                    guardarDatos(b);
+                }
+                else{
+                   JOptionPane.showMessageDialog(this, "No existe ese cliente"); 
+                }
             }
          
         }
          
           if(e.getSource() == consultarC){
             String n = JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
-            boolean y = false;
-            banco b = obtenerDatos();
-            for(int i=0;i<b.obtenerTam();i++){
-                if(b.obtenerCliente(i).obtenerNombre().equals(n))
-                        y = true;
-            }
-            if(y){
-                dispose();
-                EventQueue.invokeLater(new Runnable(){
-                public void run(){
-                    try{ 
-                      consultas con=new consultas(n);
-
-                    }
-                    catch(Exception e){
-                        e.printStackTrace();
-                    }
+            if(validarNombre(n)){
+                boolean y = false;
+                banco b = obtenerDatos();
+                for(int i=0;i<b.obtenerTam();i++){
+                    if(b.obtenerCliente(i).obtenerNombre().equals(n))
+                            y = true;
                 }
-                });
+                if(y){
+                    dispose();
+                    EventQueue.invokeLater(new Runnable(){
+                    public void run(){
+                        try{ 
+                          consultas con=new consultas(n);
+
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                    });
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"Ese cliente no existe");
+                }
             }
-            else{
-                JOptionPane.showMessageDialog(this,"Ese cliente no existe");
-            }
-            
         }
     }
     
@@ -186,5 +191,24 @@ public class menuBanco extends JFrame implements ActionListener{
        catch(Exception e){
              e.printStackTrace();
        }
+    }
+    
+    public boolean validarNombre(String n){
+        boolean x = true;
+        Pattern p = Pattern.compile("[^a-z ]",Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(n);
+        boolean b = m.find();
+        try{
+            if(n.isEmpty()){
+                throw new excepciones(2);
+            } else if(b){
+                throw new excepciones(0);
+            }
+        }
+        catch(excepciones e){
+            x = false;
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+        return x;
     }
 }
