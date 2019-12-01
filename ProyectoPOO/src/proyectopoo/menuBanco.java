@@ -6,12 +6,14 @@
 package proyectopoo;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class menuBanco extends JFrame implements ActionListener{
     JButton agregarC,eliminarC,consultarC,salir;
-    JLabel SistemaBanco;
+    JLabel SistemaBanco,imagen;
     JLabel tituloB;
     
     public menuBanco(){
@@ -45,19 +47,30 @@ public class menuBanco extends JFrame implements ActionListener{
     
     public void comps(){
        tituloB = new JLabel("Bienvenido");
-       tituloB.setBounds(250, 25, 250, 50);
-       //tituloB.setFont();
+       tituloB.setBounds(275, 25, 250, 50);
+       tituloB.setFont(new Font("Arial",0,30));
        this.add(tituloB);
        tituloB.setVisible(true);
+       
+       imagen = new JLabel();
+       imagen.setBounds(400,125,300,300);
+       ImageIcon icono=new ImageIcon(getClass().getResource("/resources/bancoF.jpg"));
+       imagen.setIcon(icono);
+       imagen.setBorder(null);
+       this.add(imagen);
+       imagen.setVisible(true);
+
         
        agregarC=new JButton("Agregar Cliente/Cuenta");
        agregarC.setBounds(50, 125, 250, 75);
+       agregarC.setFont(new Font("Arial",0,18));
        agregarC.addActionListener(this);
        this.add(agregarC);
        agregarC.setVisible(true);
     
         eliminarC=new JButton("Eliminar Cliente");
         eliminarC.setBounds(50, 225, 250, 75);
+        eliminarC.setFont(new Font("Arial",0,18));
         eliminarC.addActionListener(this);
         this.add(eliminarC);
         eliminarC.setVisible(true);
@@ -65,6 +78,7 @@ public class menuBanco extends JFrame implements ActionListener{
 
         consultarC=new JButton("Consultar Cuentas");
         consultarC.setBounds(50, 325, 250, 75);
+        consultarC.setFont(new Font("Arial",0,18));
         consultarC.addActionListener(this);
         this.add(consultarC);
         consultarC.setVisible(true);    
@@ -72,6 +86,7 @@ public class menuBanco extends JFrame implements ActionListener{
     
         salir=new JButton("Salir");
         salir.setBounds(550, 450, 150, 50);
+        salir.setFont(new Font("Arial",0,14));
         salir.addActionListener(this);
         this.add(salir);
         salir.setVisible(true);   

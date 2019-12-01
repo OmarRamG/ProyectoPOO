@@ -5,6 +5,7 @@
  */
 package proyectopoo;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -42,7 +43,7 @@ public class consultas extends JFrame implements ActionListener{
     public void comps(){
        tituloC = new JLabel("Información ");
        tituloC.setBounds(250, 25, 250, 50);
-       //tituloB.setFont();
+       tituloC.setFont(new Font("Arial",0,18));
        this.add(tituloC);
        tituloC.setVisible(true);
         
