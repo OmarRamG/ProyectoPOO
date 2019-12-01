@@ -30,6 +30,6 @@ public class cliente implements Serializable{
 	}
 	
 	public void agregarCuenta(cuenta cta){
-		  
+            
 	}
 }

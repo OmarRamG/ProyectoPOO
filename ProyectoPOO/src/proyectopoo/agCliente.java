@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @author Omar Ramirez
  */
 public class agCliente extends JFrame implements ActionListener{
-    JButton cuentaA,cuentaC,agregaC;
+    JButton cuentaA,cuentaC,agregaC,listo;
     JLabel nombreC,tipoC,saldo,interes,montoS;
     JTextField nom,sal,inte,sob;
     
@@ -27,7 +27,7 @@ public class agCliente extends JFrame implements ActionListener{
     }
     
      public void configVen(){
-        this.setSize(500, 350);
+        this.setSize(450, 450);
         this.setTitle("Agregar Cliente");
         this.setLocationRelativeTo(null);
         this.setLayout(null);
@@ -53,11 +53,17 @@ public class agCliente extends JFrame implements ActionListener{
         this.add(cuentaA);
         cuentaA.setVisible(true);
     
-        agregaC=new JButton("Agregar");
+        agregaC=new JButton("Agregar Cuenta");
         agregaC.setBounds(150, 250, 150, 40);
         agregaC.addActionListener(this);
         this.add(agregaC);
         agregaC.setVisible(true);
+        
+        listo=new JButton("Listo");
+        listo.setBounds(150, 325, 150, 40);
+        listo.addActionListener(this);
+        this.add(listo);
+        listo.setVisible(false);
        
         nombreC = new JLabel("Nombre Completo");
         nombreC.setBounds(50,30,150,25);
@@ -122,6 +128,16 @@ public class agCliente extends JFrame implements ActionListener{
             sob.setVisible(true);
         }
         if(e.getSource()== agregaC){
+            listo.setVisible(true);
+            montoS.setVisible(false);
+            sob.setVisible(false);
+            interes.setVisible(false);
+            inte.setVisible(false);
+            cuentaC.setVisible(true);
+            cuentaA.setVisible(true);
+            
+        }
+        if(e.getSource() == listo){
             dispose();
             menuBanco w = new menuBanco();
         }

@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,7 +50,7 @@ public class menuBanco extends JFrame implements ActionListener{
        this.add(tituloB);
        tituloB.setVisible(true);
         
-       agregarC=new JButton("Agregar Cliente");
+       agregarC=new JButton("Agregar Cliente/Cuenta");
        agregarC.setBounds(50, 125, 250, 75);
        agregarC.addActionListener(this);
        this.add(agregarC);
@@ -97,8 +98,9 @@ public class menuBanco extends JFrame implements ActionListener{
         });
         }
         
-         if(e.getSource() == eliminarC){
-            
+        if(e.getSource() == eliminarC){
+            JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
+            //JOptionPane.g
         }
          
           if(e.getSource() == consultarC){

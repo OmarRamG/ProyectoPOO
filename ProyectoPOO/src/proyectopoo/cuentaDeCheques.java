@@ -24,6 +24,18 @@ public class cuentaDeCheques extends cuenta implements Serializable{
 	}
 	
 	public void retirar(double monto){
-	  
+            if((super.consultar() + montoSobregiro) < monto){
+                
+            }
+            else{
+                if(super.consultar() >= monto){
+                    super.retirar(monto);
+                }
+                else{
+                    double x = monto - super.consultar();
+                    super.retirar(super.consultar());
+                    montoSobregiro = montoSobregiro - x;
+                }
+            }
 	}    
 }
