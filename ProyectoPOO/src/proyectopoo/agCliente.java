@@ -134,7 +134,7 @@ public class agCliente extends JFrame implements ActionListener{
         if(e.getSource()== agregaC){
             if(validar()){
                 boolean y = true, p = true;
-                banco b = menuBanco.obtenerDatos();
+                banco b = banco.obtenerDatos();
                 for(int i=0;i<b.obtenerTam();i++){
                     if(b.obtenerCliente(i).obtenerNombre().equals(nom.getText()))
                             y = false;
@@ -185,7 +185,7 @@ public class agCliente extends JFrame implements ActionListener{
                      } 
                 }
 
-                menuBanco.guardarDatos(b);
+                banco.guardarDatos(b);
 
                 if(p){
                     listo.setVisible(true);

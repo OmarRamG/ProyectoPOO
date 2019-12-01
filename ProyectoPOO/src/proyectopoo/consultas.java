@@ -63,7 +63,7 @@ public class consultas extends JFrame implements ActionListener{
     }
     
     public void mostrarInfo(){
-        banco b = menuBanco.obtenerDatos();  
+        banco b = banco.obtenerDatos();  
         info.setText("Nombre:"+b.obtenerCliente(nomC).obtenerNombre()+"\n\nCuentas:\n\n");
         for(int i = 0;i < b.obtenerCliente(nomC).obtenerTam();i++){
             if((b.obtenerCliente(nomC).obtenerCuenta(i)) instanceof cuentaDeCheques){

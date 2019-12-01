@@ -5,6 +5,10 @@
  */
 package proyectopoo;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -42,5 +46,32 @@ public class banco implements Serializable{
                 x = i;
         }
         return listaCliente.get(x);
+    }
+    
+    public static banco obtenerDatos(){
+        banco B = new banco();
+        try{
+            FileInputStream fis = new FileInputStream("Datos.dat");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            B = (banco) ois.readObject();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return B;
+    }
+    
+    
+    public static void guardarDatos(banco b){
+        try{
+            FileOutputStream fs = new FileOutputStream("Datos.dat");
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+            os.writeObject(b);
+            os.close();
+
+        }
+       catch(Exception e){
+             e.printStackTrace();
+       }
     }
 }

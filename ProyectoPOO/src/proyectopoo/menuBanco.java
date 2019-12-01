@@ -9,10 +9,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
@@ -118,7 +114,7 @@ public class menuBanco extends JFrame implements ActionListener{
         if(e.getSource() == eliminarC){
             String n = JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
             if(validarNombre(n)){
-                banco b = obtenerDatos();
+                banco b = banco.obtenerDatos();
                 boolean y = false;
                 for(int i=0;i<b.obtenerTam();i++){
                     if(b.obtenerCliente(i).obtenerNombre().equals(n))
@@ -127,7 +123,7 @@ public class menuBanco extends JFrame implements ActionListener{
                 if(y){
                     b.eliminarCliente(n);
                     JOptionPane.showMessageDialog(this, "Cliente eliminado");
-                    guardarDatos(b);
+                    banco.guardarDatos(b);
                 }
                 else{
                    JOptionPane.showMessageDialog(this, "No existe ese cliente"); 
@@ -140,7 +136,7 @@ public class menuBanco extends JFrame implements ActionListener{
             String n = JOptionPane.showInputDialog(this, "Ingresa el nombre del cliente");
             if(validarNombre(n)){
                 boolean y = false;
-                banco b = obtenerDatos();
+                banco b = banco.obtenerDatos();
                 for(int i=0;i<b.obtenerTam();i++){
                     if(b.obtenerCliente(i).obtenerNombre().equals(n))
                             y = true;
@@ -166,32 +162,7 @@ public class menuBanco extends JFrame implements ActionListener{
         }
     }
     
-    public static banco obtenerDatos(){
-        banco B = new banco();
-        try{
-            FileInputStream fis = new FileInputStream("Datos.dat");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            B = (banco) ois.readObject();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        return B;
-    }
     
-    
-    public static void guardarDatos(banco b){
-        try{
-            FileOutputStream fs = new FileOutputStream("Datos.dat");
-            ObjectOutputStream os = new ObjectOutputStream(fs);
-            os.writeObject(b);
-            os.close();
-
-        }
-       catch(Exception e){
-             e.printStackTrace();
-       }
-    }
     
     public boolean validarNombre(String n){
         boolean x = true;
