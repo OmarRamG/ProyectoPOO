@@ -32,8 +32,8 @@ public class menuBanco extends JFrame implements ActionListener{
     }
     
     public void configVen(){
-        this.setSize(800, 600);
-        this.setTitle("Banco: Menú principal");
+        this.setSize(800, 650);
+        this.setTitle("Banco: Menu principal");
         this.setLocationRelativeTo(null);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,40 +60,42 @@ public class menuBanco extends JFrame implements ActionListener{
 
         
        agregarC=new JButton("Agregar Cliente/Cuenta");
-       agregarC.setBounds(50, 125, 250, 75);
-       agregarC.setFont(new Font("Arial",0,18));
+       agregarC.setBounds(50, 120, 270, 75);
+       agregarC.setFont(new Font("Arial",0,20));
        agregarC.addActionListener(this);
        this.add(agregarC);
        agregarC.setVisible(true);
     
         eliminarC=new JButton("Eliminar Cliente");
-        eliminarC.setBounds(50, 225, 250, 75);
-        eliminarC.setFont(new Font("Arial",0,18));
+        eliminarC.setBounds(50, 250, 270, 75);
+        eliminarC.setFont(new Font("Arial",0,20));
         eliminarC.addActionListener(this);
         this.add(eliminarC);
         eliminarC.setVisible(true);
     
 
         consultarC=new JButton("Consultar Cuentas");
-        consultarC.setBounds(50, 325, 250, 75);
-        consultarC.setFont(new Font("Arial",0,18));
+        consultarC.setBounds(50, 380, 270, 75);
+        consultarC.setFont(new Font("Arial",0,20));
         consultarC.addActionListener(this);
         this.add(consultarC);
-        consultarC.setVisible(true);    
-
+        consultarC.setVisible(true);
+        
     
         salir=new JButton("Salir");
-        salir.setBounds(550, 450, 150, 50);
+        salir.setBounds(550, 520, 150, 50);
         salir.setFont(new Font("Arial",0,14));
         salir.addActionListener(this);
         this.add(salir);
         salir.setVisible(true);   
+        
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == salir){
             dispose();
+            inicio i = new inicio();
         }
         
         if(e.getSource() == agregarC){
@@ -160,6 +162,10 @@ public class menuBanco extends JFrame implements ActionListener{
                 }
             }
         }
+          
+          
+        
+        
     }
     
     

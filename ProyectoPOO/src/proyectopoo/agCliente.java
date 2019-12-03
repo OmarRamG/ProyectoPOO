@@ -21,8 +21,9 @@ import javax.swing.JTextField;
  */
 public class agCliente extends JFrame implements ActionListener{
     JButton cuentaA,cuentaC,agregaC,listo;
-    JLabel nombreC,tipoC,saldo,interes,montoS;
-    JTextField nom,sal,inte,sob;
+	JLabel contra;
+    JLabel nombreC,tipoC,saldo,interes,montoS,conta;
+    JTextField nom,sal,inte,sob,cont;
     
     public agCliente(){
         configVen();
@@ -73,10 +74,19 @@ public class agCliente extends JFrame implements ActionListener{
         this.add(nombreC);
         nombreC.setVisible(true);
         
+        
+        
+        conta = new JLabel("Contraseña");
+        conta.setBounds(80,60,100,25);
+        this.add(conta);
+        conta.setVisible(true);
+        
+        
         saldo = new JLabel("Saldo inicial");
-        saldo.setBounds(50,65,100,25);
+        saldo.setBounds(80,90,100,25);
         this.add(saldo);
         saldo.setVisible(true);
+        
         
         tipoC = new JLabel("Elige el tipo de cuenta");
         tipoC.setBounds(50,120,200,25);
@@ -88,12 +98,17 @@ public class agCliente extends JFrame implements ActionListener{
         this.add(nom);
         nom.setVisible(true);
         
+        cont = new JTextField();
+        cont.setBounds(200,60,100,25);
+        this.add(cont);
+        cont.setVisible(true);
+        
         sal = new JTextField();
-        sal.setBounds(200,65,100,25);
+        sal.setBounds(200,90,100,25);
         this.add(sal);
         sal.setVisible(true);
         
-        interes = new JLabel("Interés");
+        interes = new JLabel("Interes");
         interes.setBounds(50,150,100,25);
         this.add(interes);
         interes.setVisible(false);
@@ -141,7 +156,7 @@ public class agCliente extends JFrame implements ActionListener{
                 }
 
                 if(y){
-                        cliente c = new cliente(nom.getText());
+                        cliente c = new cliente(nom.getText(),cont.getText());
                         if(interes.isVisible()){
                             if(validarTipos(1)){
                                 cuentaDeAhorros cta = new cuentaDeAhorros(Double.parseDouble(sal.getText()),Double.parseDouble(inte.getText()));
@@ -184,10 +199,15 @@ public class agCliente extends JFrame implements ActionListener{
                                 p = false;
                      } 
                 }
-
+                
                 banco.guardarDatos(b);
 
                 if(p){
+                    nom.setText("");
+                    sal.setText("");
+                    inte.setText("");
+                    cont.setText("");
+                    sob.setText("");    
                     listo.setVisible(true);
                     montoS.setVisible(false);
                     sob.setVisible(false);

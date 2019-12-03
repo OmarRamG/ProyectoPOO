@@ -6,6 +6,7 @@
 package proyectopoo;
 
 import java.io.Serializable;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +30,7 @@ public class cuentaDeCheques extends cuenta implements Serializable{
 	
 	public void retirar(double monto){
             if((super.consultar() + montoSobregiro) < monto){
-                
+                JOptionPane.showMessageDialog(null, "Saldo insuficiente"); 
             }
             else{
                 if(super.consultar() >= monto){

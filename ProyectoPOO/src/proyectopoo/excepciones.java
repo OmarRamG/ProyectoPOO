@@ -22,10 +22,10 @@ public class excepciones extends Exception{
         String msg = "";
         switch(codigoError){
             case 0:
-                msg = "El nombre no puede tener caracteres especiales ni números";
+                msg = "El nombre no puede tener caracteres especiales ni numeros";
                 break;
             case 1:
-                msg = "Debe ingresar un valor numérico para el saldo";
+                msg = "Debe ingresar un valor numerico para el saldo";
                 break;
             case 2:
                 msg = "Debe ingresar un dato en el nombre";
@@ -34,13 +34,13 @@ public class excepciones extends Exception{
                 msg = "Debe ingresar un dato en el saldo";
                 break;
             case 4:
-                msg = "EL interés debe ser un valor numérico";
+                msg = "EL interes debe ser un valor numerico";
                 break;
             case 5:
-                msg = "Debe ingresar un dato en el interés";
+                msg = "Debe ingresar un dato en el interes";
                 break;
             case 6:
-                msg = "EL sobregiro debe ser un valor numérico";
+                msg = "EL sobregiro debe ser un valor numerico";
                 break;
             case 7:
                 msg = "Debe ingresar un dato en el sobregiro";

@@ -7,6 +7,8 @@ package proyectopoo;
 
 import java.io.Serializable;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Omar Ramirez
@@ -20,11 +22,20 @@ public class cuentaDeAhorros extends cuenta implements Serializable{
 	}
         
         public double conTasa(){
-            return (tasaDeInteres * 100);
+            return tasaDeInteres;
         }
         
         @Override
 	public double consultar(){
-            return (super.consultar() + (super.consultar() * tasaDeInteres));
-	}    
+            return (super.consultar() + (super.consultar() * (tasaDeInteres/100)));
+	}
+        
+    public void retirar(double monto) {
+    	if((super.consultar() + (super.consultar() * (tasaDeInteres/100))>=monto)){
+    		super.retirar(monto-(super.consultar() * (tasaDeInteres/100)));
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(null, "Saldo insuficiente");
+    	}
+    }
 }

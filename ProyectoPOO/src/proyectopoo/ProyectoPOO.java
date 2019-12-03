@@ -28,7 +28,7 @@ public class ProyectoPOO {
                     ObjectOutputStream os = new ObjectOutputStream(fs);
                     os.writeObject(b);
                     os.close();
-                    menuBanco window = new menuBanco();
+                    inicio w = new inicio();
 
                 }
                 catch(Exception e){

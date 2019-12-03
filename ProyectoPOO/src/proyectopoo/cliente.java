@@ -14,15 +14,23 @@ import java.util.ArrayList;
  */
 public class cliente implements Serializable{
         private String nombre;
+        private String contra;
 	private ArrayList <cuenta> cuentas = new ArrayList <>();
 	
-	public cliente(String nom){
-		nombre = nom;  
+	public cliente(String nom, String cont){
+		nombre = nom; 
+		contra = cont;
 	}
+	
+
 	
 	public String obtenerNombre(){	
             return nombre;
 	}
+	
+	public String obtenerContraseña(){	
+        return contra;
+}
 	
 	public cuenta obtenerCuenta(int index){
 		return cuentas.get(index);

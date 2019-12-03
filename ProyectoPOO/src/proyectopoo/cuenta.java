@@ -7,6 +7,8 @@ package proyectopoo;
 
 import java.io.Serializable;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Omar Ramirez
@@ -22,16 +24,34 @@ public class cuenta implements Serializable{
 	  return saldo; 
 	}
 	
-	public void depositar(double monto){
-		saldo = saldo + monto;  
+	public void depositar(double monto,int e){
+		saldo = saldo + monto;
+                    if(e == 0)
+                        JOptionPane.showMessageDialog(null, "Operacion realizada correctamente");
+                    else
+                        JOptionPane.showMessageDialog(null, "Realizando transferencia");
 	}
 	
 	public void retirar(double monto){
 		if(monto > saldo){
-			System.out.println("Saldo insuficiente");  
+			JOptionPane.showMessageDialog(null, "Saldo insuficiente"); 
 		}
 		else{
 			saldo = saldo - monto;  
+                            JOptionPane.showMessageDialog(null, "Operacion realizada correctamente");
+			
 		}  
-	}   
+	}  
+	
+	public boolean retirar(double monto, int n){
+        boolean x = false;
+		if(monto > saldo){
+			JOptionPane.showMessageDialog(null, "Saldo insuficiente"); 
+		}
+		else{
+			saldo = saldo - monto;  
+			x = true;
+		} 
+		return x;
+	}
 }
